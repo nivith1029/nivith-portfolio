@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-
 const LOGOS = {
   BY: "/logos/BY.png",
   UBS: "/logos/UBS.png",
@@ -48,10 +47,16 @@ const SKILLS: Record<string, string[]> = {
     "HTML",
     "CSS",
     "JavaScript",
+    "TypeScript",
     "jQuery",
     "AJAX",
     "React.js",
     "Node.js",
+    "Tailwind",
+    "Streamlit",
+    "Dialogflow",
+    "Haystack",
+    "Human-loop",
     "Conversational UI",
     "Prompt Driven Interfaces",
   ],
@@ -96,8 +101,12 @@ const SKILLS: Record<string, string[]> = {
     "SageMaker Pipelines",
     "Kubeflow",
     "MLflow",
-    "Model Versioning",
-    "Experiment Tracking",
+    "LakeFS",
+    "GitLFS",
+    "pachyderm",
+    "NeptuneAI",
+    "ClearML",
+    "Comet ML",
   ],
   "Cloud Platforms": [
     "Azure (Azure OpenAI, Azure Functions, AKS, ACR, Azure Data Factory, Azure Databricks, Azure Blob Storage, Azure API Management, Azure Key Vault, Entra ID)",
@@ -116,7 +125,16 @@ const SKILLS: Record<string, string[]> = {
     "Jenkins",
     "AWS CodeBuild",
   ],
-  "Monitoring & Observability": ["Prometheus", "Grafana", "Azure Monitor", "Application Insights"],
+  "Monitoring & Observability": [
+    "Prometheus",
+    "Grafana",
+    "Azure Monitor",
+    "Application Insights",
+    "ELK stack",
+    "openTelemetry",
+    "datadog",
+    "Dynatrace",
+  ],
   Security: [
     "OAuth2",
     "OpenID Connect",
@@ -405,7 +423,7 @@ export default function Home() {
                 </div>
 
                 <p className={["mt-3 max-w-3xl leading-7", isDark ? "text-zinc-300" : "text-zinc-700"].join(" ")}>
-                  I’m a Generative AI Engineer with 6+ years of experience building and shipping production systems. Most of my work sits at the intersection
+                  I’m a Generative AI Engineer with 5+ years of experience building and shipping production systems. Most of my work sits at the intersection
                   of LLM apps and backend engineering: search and retrieval over real business data, agent workflows for multi-step requests, and APIs that stay
                   stable under real usage. I’ve worked across supply chain, banking, healthcare, energy, and manufacturing, and I’m comfortable taking a feature
                   from data prep to deployment.
@@ -483,7 +501,7 @@ export default function Home() {
                   logoSrc={LOGOS.UHG}
                   company="UHG"
                   title="Python Full Stack Engineer"
-                  meta="Dallas, TX | Aug 2023 – Dec 2023"
+                  meta="Dallas, TX | Sep 2023 – Dec 2023"
                   tags={["Python", "Flask", "Django", "GKE", "Vertex AI", "Kubeflow", "MLflow", "BigQuery", "Dataflow"]}
                   summary="Built healthcare applications and backend services using Python with Flask and Django, focused on reliable APIs for clinical workflows and analytics. Developed and deployed ML and deep learning models for NLP, computer vision, and time-series use cases, and set up reproducible training and deployment using Kubeflow on GKE. Used Vertex AI for experimentation and deployment, and built data pipelines with BigQuery and Dataflow to support reporting and segmentation. Focused on clean service design, stable integrations, and production support in an Agile environment."
                 />
@@ -493,7 +511,7 @@ export default function Home() {
                   logoSrc={LOGOS.C}
                   company="Celanese"
                   title="Python Developer"
-                  meta="Irving, TX | Sep 2022 – Jul 2023"
+                  meta="Irving, TX | May 2023 – Aug 2023"
                   tags={["Python", "Flask", "Django", "FastAPI", "Azure Functions", "AKS", "API Management", "Kafka", "Terraform", "Ansible"]}
                   summary="Built backend and platform services supporting enterprise manufacturing workflows. Developed Python microservices using Flask, Django, and FastAPI, and deployed them using Azure Functions and AKS. Implemented API gateways with authentication, routing, and rate limiting, and built event-driven pipelines using Kafka and Azure messaging services. Worked extensively on CI/CD, infrastructure automation with Terraform and Ansible, and improving performance and reliability of production systems."
                 />
@@ -503,7 +521,7 @@ export default function Home() {
                   logoSrc={LOGOS.A}
                   company="Algocode"
                   title="Python Developer"
-                  meta="Pune, India | Jul 2019 – Jul 2022"
+                  meta="Pune, India | Aug 2020 – Jul 2022"
                   tags={["Python", "Django", "HTML/CSS/JS", "jQuery", "Jenkins", "Linux", "AWS", "Spark"]}
                   summary="Worked on full-stack and backend systems for data-driven enterprise applications. Built Django-based web applications, internal tools, and admin workflows, and supported data processing using Python and Spark. Contributed to CI pipelines using Jenkins and Git, handled Linux-based deployments, and worked with AWS services for application hosting and data workflows. Gained strong experience in building maintainable systems and working in Agile delivery environments."
                 />
