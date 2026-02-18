@@ -18,6 +18,7 @@ const LOGOS = {
 const NAV = [
   { id: "about", label: "About", icon: IconUser },
   { id: "experience", label: "Experience", icon: IconBriefcase },
+  { id: "projects", label: "Projects", icon: IconCode2 },
   { id: "education", label: "Education", icon: IconGraduation },
   { id: "skills", label: "Skills", icon: IconCode },
   { id: "contact", label: "Contact", icon: IconMail },
@@ -164,6 +165,59 @@ const SKILLS: Record<string, string[]> = {
   ],
   "Agile & Collaboration": ["Jira", "Confluence", "Agile", "Scrum"],
 };
+
+/* ----------------------------- PROJECTS DATA ----------------------------- */
+
+const PROJECTS = [
+  {
+    title: "IMDB Conversational Voice Agent",
+    emoji: "🎬",
+    github: "https://github.com/nivith1029/conversational-voice-agent",
+    tags: ["LangGraph", "OpenAI GPT-4o", "ChromaDB", "SQLite", "Streamlit", "Whisper", "TTS", "Python"],
+    description:
+      "A production-grade GenAI-powered conversational agent for exploring IMDB's Top 1000 movies. The system features intelligent query routing that automatically classifies queries as structured (SQL), semantic (vector search), or hybrid, then executes the best strategy and synthesizes a grounded response.",
+    highlights: [
+      "Intelligent query router classifying natural language queries into SQL, semantic, or hybrid paths",
+      "Semantic search over movie plots using ChromaDB + OpenAI embeddings — finds thematic matches, not just keywords",
+      "Voice interface with OpenAI Whisper (STT) and TTS-1 (text-to-speech) for a fully conversational experience",
+      "LangGraph agent workflow handling routing, execution, response synthesis, and smart movie recommendations",
+      "Handles complex multi-filter aggregations, date ranges, director stats, and ambiguous clarification flows",
+    ],
+    stack: {
+      LLM: "OpenAI GPT-4o",
+      Embeddings: "text-embedding-3-small",
+      "Agent Framework": "LangGraph",
+      "Vector Store": "ChromaDB",
+      Database: "SQLite",
+      UI: "Streamlit",
+      Voice: "Whisper + TTS-1",
+    },
+  },
+  {
+    title: "RAG PDF Assistant",
+    emoji: "📚",
+    github: "https://github.com/nivith1029/chatbot",
+    tags: ["FastAPI", "FAISS", "Ollama", "PyPDF", "Python", "GitHub Actions", "Pytest", "Ruff"],
+    description:
+      "A local Retrieval-Augmented Generation (RAG) system that lets users upload PDF documents and ask natural-language questions using a locally running LLM via Ollama — no paid APIs required. Built with a production-style FastAPI backend, FAISS vector store, and a clean CI pipeline.",
+    highlights: [
+      "Fully local inference stack — Ollama + qwen2.5:1.5b + nomic-embed-text, zero cloud API costs",
+      "PDF ingestion pipeline that chunks, embeds, and indexes documents with FAISS for semantic retrieval",
+      "Filename-based document filtering so users can scope queries to a specific uploaded file",
+      "Answers returned with source citations including filename and page number for auditability",
+      "GitHub Actions CI with Ruff linting and Pytest test suite for production-grade quality gates",
+    ],
+    stack: {
+      Backend: "FastAPI",
+      "Vector Store": "FAISS",
+      LLM: "Ollama (qwen2.5:1.5b)",
+      Embeddings: "nomic-embed-text",
+      Parsing: "PyPDF",
+      Testing: "Pytest + Ruff",
+      CI: "GitHub Actions",
+    },
+  },
+];
 
 type ThemeMode = "dark" | "light";
 
@@ -423,9 +477,9 @@ export default function Home() {
                 </div>
 
                 <p className={["mt-3 max-w-3xl leading-7", isDark ? "text-zinc-300" : "text-zinc-700"].join(" ")}>
-                  I’m a Generative AI Engineer with 5+ years of experience building and shipping production systems. Most of my work sits at the intersection
+                  I'm a Generative AI Engineer with 5+ years of experience building and shipping production systems. Most of my work sits at the intersection
                   of LLM apps and backend engineering: search and retrieval over real business data, agent workflows for multi-step requests, and APIs that stay
-                  stable under real usage. I’ve worked across supply chain, banking, healthcare, energy, and manufacturing, and I’m comfortable taking a feature
+                  stable under real usage. I've worked across supply chain, banking, healthcare, energy, and manufacturing, and I'm comfortable taking a feature
                   from data prep to deployment.
                 </p>
 
@@ -433,6 +487,7 @@ export default function Home() {
                   <ActionLink href="/resume.pdf" label="View Resume" isDark={isDark} />
                   <ActionLink href="mailto:Nivith1029@gmail.com" label="Email" isDark={isDark} />
                   <ActionLink href="https://www.linkedin.com/in/nivith-avula-0b44a0140" label="LinkedIn" newTab isDark={isDark} />
+                  <ActionLink href="https://github.com/nivith1029" label="GitHub" newTab isDark={isDark} />
                 </div>
               </div>
             </div>
@@ -448,8 +503,8 @@ export default function Home() {
                   agent-style orchestration to handle routing, checks, and follow-ups.
                 </p>
                 <p className={["leading-7", isDark ? "text-zinc-300" : "text-zinc-700"].join(" ")}>
-                  I care a lot about the “boring but important” parts: retrieval quality, stable prompts, output validation, access control, and good
-                  logging/monitoring. I also keep deployments simple with CI/CD and containerized releases, so shipping changes doesn’t turn into a fire drill.
+                  I care a lot about the "boring but important" parts: retrieval quality, stable prompts, output validation, access control, and good
+                  logging/monitoring. I also keep deployments simple with CI/CD and containerized releases, so shipping changes doesn't turn into a fire drill.
                 </p>
 
                 <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -528,6 +583,15 @@ export default function Home() {
               </div>
             </Section>
 
+            {/* PROJECTS */}
+            <Section id="projects" title="Projects" cmd="ls -la ./projects" isDark={isDark}>
+              <div className="space-y-5" data-reveal>
+                {PROJECTS.map((project) => (
+                  <ProjectCard key={project.title} project={project} isDark={isDark} />
+                ))}
+              </div>
+            </Section>
+
             {/* EDUCATION */}
             <Section id="education" title="Education" cmd="cat ./education" isDark={isDark}>
               <div className="space-y-4" data-reveal>
@@ -539,7 +603,7 @@ export default function Home() {
 
                     <div className="min-w-0">
                       <div className={["text-sm", isDark ? "text-zinc-400" : "text-zinc-600"].join(" ")}>University of North Texas</div>
-                      <div className="mt-1 text-lg font-semibold">Master’s — Information Systems & Technology</div>
+                      <div className="mt-1 text-lg font-semibold">Master's — Information Systems & Technology</div>
                       <div className={["mt-1 text-sm", isDark ? "text-zinc-400" : "text-zinc-600"].join(" ")}>Aug 2022 – May 2024</div>
                     </div>
                   </div>
@@ -650,8 +714,8 @@ function TiltCard({ children, isDark }: { children: React.ReactNode; isDark: boo
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
 
-    const rotY = (px - 0.5) * 12; // left/right
-    const rotX = -(py - 0.5) * 12; // up/down
+    const rotY = (px - 0.5) * 12;
+    const rotX = -(py - 0.5) * 12;
 
     setStyle({
       transform: `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0)`,
@@ -674,6 +738,144 @@ function TiltCard({ children, isDark }: { children: React.ReactNode; isDark: boo
       style={style}
     >
       {children}
+    </div>
+  );
+}
+
+/* ----------------------------- Project Card ----------------------------- */
+
+function ProjectCard({
+  project,
+  isDark,
+}: {
+  project: (typeof PROJECTS)[number];
+  isDark: boolean;
+}) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div
+      className={[
+        "relative overflow-hidden rounded-2xl border p-5 transition-all duration-300",
+        isDark ? "border-zinc-800 bg-zinc-950/30" : "border-zinc-200 bg-white/70",
+      ].join(" ")}
+    >
+      {/* ambient glow */}
+      <div className="pointer-events-none absolute -inset-1 opacity-40 blur-2xl">
+        <div className="h-full w-full bg-[radial-gradient(circle_at_20%_10%,rgba(34,211,238,0.18),transparent_55%),radial-gradient(circle_at_80%_20%,rgba(217,70,239,0.14),transparent_55%),radial-gradient(circle_at_60%_90%,rgba(16,185,129,0.18),transparent_55%)]" />
+      </div>
+
+      <div className="relative">
+        {/* Header row */}
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl" role="img" aria-label="project icon">
+              {project.emoji}
+            </span>
+            <div>
+              <div className="text-lg font-semibold">{project.title}</div>
+              <div className={["text-xs mt-0.5", isDark ? "text-zinc-500" : "text-zinc-600"].join(" ")}>Personal Project</div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noreferrer"
+              className={[
+                "inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-xs transition",
+                isDark
+                  ? "border-zinc-700 bg-zinc-900/50 text-zinc-200 hover:border-zinc-600 hover:bg-zinc-900/70"
+                  : "border-zinc-200 bg-zinc-100/70 text-zinc-800 hover:bg-zinc-200/70",
+              ].join(" ")}
+            >
+              <IconGitHub className={isDark ? "text-zinc-300" : "text-zinc-700"} />
+              View on GitHub
+            </a>
+
+            <span
+              className={[
+                "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs",
+                isDark ? "border-zinc-800 bg-zinc-950/50 text-zinc-400" : "border-zinc-200 bg-white/70 text-zinc-600",
+              ].join(" ")}
+            >
+              <span className="h-2 w-2 rounded-full bg-fuchsia-400/80" />
+              Open Source
+            </span>
+          </div>
+        </div>
+
+        {/* Tags */}
+        <div className="mt-3 flex flex-wrap gap-2">
+          {project.tags.map((t) => (
+            <span
+              key={t}
+              className={[
+                "rounded-full border px-3 py-1 text-xs transition",
+                isDark
+                  ? "border-zinc-800 bg-zinc-900/50 text-zinc-200 hover:border-zinc-700 hover:bg-zinc-900/80"
+                  : "border-zinc-200 bg-zinc-100/70 text-zinc-800 hover:bg-zinc-200/70",
+              ].join(" ")}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+
+        {/* Description */}
+        <p className={["mt-4 text-sm leading-7", isDark ? "text-zinc-300" : "text-zinc-700"].join(" ")}>
+          {project.description}
+        </p>
+
+        {/* Expand/collapse highlights */}
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          className={[
+            "mt-3 inline-flex items-center gap-2 text-xs transition",
+            isDark ? "text-cyan-400 hover:text-cyan-300" : "text-cyan-600 hover:text-cyan-800",
+          ].join(" ")}
+        >
+          <span>{expanded ? "▲ Hide details" : "▼ Show details"}</span>
+        </button>
+
+        {expanded && (
+          <div className="mt-4 space-y-4">
+            {/* Highlights */}
+            <div className={["rounded-2xl border p-4", isDark ? "border-zinc-800 bg-zinc-950/40" : "border-zinc-200 bg-white/70"].join(" ")}>
+              <div className={["mb-3 text-xs font-semibold uppercase tracking-wide", isDark ? "text-zinc-400" : "text-zinc-600"].join(" ")}>
+                Key highlights
+              </div>
+              <ul className="space-y-2">
+                {project.highlights.map((h, i) => (
+                  <li key={i} className={["flex items-start gap-2 text-sm", isDark ? "text-zinc-300" : "text-zinc-700"].join(" ")}>
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400/80" />
+                    {h}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Stack */}
+            <div className={["rounded-2xl border p-4", isDark ? "border-zinc-800 bg-zinc-950/40" : "border-zinc-200 bg-white/70"].join(" ")}>
+              <div className={["mb-3 text-xs font-semibold uppercase tracking-wide", isDark ? "text-zinc-400" : "text-zinc-600"].join(" ")}>
+                Tech stack
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {Object.entries(project.stack).map(([k, v]) => (
+                  <div key={k} className="flex items-start gap-2">
+                    <span className={["shrink-0 text-xs font-medium", isDark ? "text-zinc-500" : "text-zinc-600"].join(" ")}>
+                      {k}:
+                    </span>
+                    <span className={["text-xs", isDark ? "text-zinc-200" : "text-zinc-800"].join(" ")}>{v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -831,6 +1033,7 @@ function ContactPanel({ isDark }: { isDark: boolean }) {
   const PHONE_DISPLAY = "+1 (469) 605-3132";
   const PHONE_DIAL = "+14696053132";
   const LINKEDIN = "https://www.linkedin.com/in/nivith-avula-0b44a0140";
+  const GITHUB = "https://github.com/nivith1029";
   const FORMSPREE_ENDPOINT = "https://formspree.io/f/xgoyybzl";
 
   const [reveal, setReveal] = useState(false);
@@ -924,7 +1127,7 @@ function ContactPanel({ isDark }: { isDark: boolean }) {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className={["text-sm", isDark ? "text-zinc-400" : "text-zinc-600"].join(" ")}>Fast ways to reach me</div>
-            <div className="mt-1 text-lg font-semibold">Let’s talk</div>
+            <div className="mt-1 text-lg font-semibold">Let's talk</div>
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -959,6 +1162,22 @@ function ContactPanel({ isDark }: { isDark: boolean }) {
             </a>
 
             <a
+              href={GITHUB}
+              target="_blank"
+              rel="noreferrer"
+              className={[
+                "inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm transition",
+                isDark
+                  ? "border-zinc-800 bg-zinc-950/40 text-zinc-200 hover:border-zinc-700 hover:bg-zinc-900/60"
+                  : "border-zinc-200 bg-white/70 text-zinc-800 hover:bg-zinc-100/70",
+              ].join(" ")}
+              aria-label="GitHub"
+              title="GitHub"
+            >
+              <IconGitHub className={isDark ? "text-fuchsia-300" : "text-fuchsia-600"} /> GitHub
+            </a>
+
+            <a
               href={`tel:${PHONE_DIAL}`}
               className={[
                 "inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm transition",
@@ -969,7 +1188,7 @@ function ContactPanel({ isDark }: { isDark: boolean }) {
               aria-label="Call"
               title="Call"
             >
-              <IconPhone className={isDark ? "text-fuchsia-300" : "text-fuchsia-600"} /> Call
+              <IconPhone className={isDark ? "text-amber-300" : "text-amber-600"} /> Call
             </a>
           </div>
         </div>
@@ -1071,7 +1290,7 @@ function ContactPanel({ isDark }: { isDark: boolean }) {
             </div>
 
             <div className={["mt-3 text-xs", isDark ? "text-zinc-500" : "text-zinc-600"].join(" ")}>
-              This form submits in-page (no redirect). Click on Submit once and you’re done.
+              This form submits in-page (no redirect). Click on Submit once and you're done.
             </div>
           </form>
         </div>
@@ -1435,11 +1654,7 @@ function LabeledSelect({
 function IconSun({ className = "" }: { className?: string }) {
   return (
     <svg className={`h-4 w-4 ${className}`} viewBox="0 0 24 24" fill="none">
-      <path
-        d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+      <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" stroke="currentColor" strokeWidth="2" />
       <path d="M12 2v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       <path d="M12 20v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       <path d="M4.93 4.93l1.41 1.41" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -1455,12 +1670,7 @@ function IconSun({ className = "" }: { className?: string }) {
 function IconMoon({ className = "" }: { className?: string }) {
   return (
     <svg className={`h-4 w-4 ${className}`} viewBox="0 0 24 24" fill="none">
-      <path
-        d="M21 14.5A8.5 8.5 0 0 1 9.5 3a6.5 6.5 0 1 0 11.5 11.5Z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
+      <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3a6.5 6.5 0 1 0 11.5 11.5Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -1503,6 +1713,16 @@ function IconCode({ className = "" }: { className?: string }) {
   );
 }
 
+function IconCode2({ className = "" }: { className?: string }) {
+  return (
+    <svg className={`h-4 w-4 ${className}`} viewBox="0 0 24 24" fill="none">
+      <path d="M7 8l-4 4 4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M17 8l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M14 4l-4 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function IconMail({ className = "" }: { className?: string }) {
   return (
     <svg className={`h-4 w-4 ${className}`} viewBox="0 0 24 24" fill="none">
@@ -1525,12 +1745,7 @@ function IconCopy({ className = "" }: { className?: string }) {
   return (
     <svg className={`h-4 w-4 ${className}`} viewBox="0 0 24 24" fill="none">
       <path d="M9 9h10v12H9V9Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-      <path
-        d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
+      <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -1538,12 +1753,7 @@ function IconCopy({ className = "" }: { className?: string }) {
 function IconPhone({ className = "" }: { className?: string }) {
   return (
     <svg className={`h-4 w-4 ${className}`} viewBox="0 0 24 24" fill="none">
-      <path
-        d="M7 3h3l2 5-2 1c1 3 3 5 6 6l1-2 5 2v3c0 1-1 2-2 2-9.4 0-17-7.6-17-17 0-1 1-2 2-2Z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
+      <path d="M7 3h3l2 5-2 1c1 3 3 5 6 6l1-2 5 2v3c0 1-1 2-2 2-9.4 0-17-7.6-17-17 0-1 1-2 2-2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -1551,18 +1761,8 @@ function IconPhone({ className = "" }: { className?: string }) {
 function IconLink({ className = "" }: { className?: string }) {
   return (
     <svg className={`h-4 w-4 ${className}`} viewBox="0 0 24 24" fill="none">
-      <path
-        d="M10 13a5 5 0 0 1 0-7l1-1a5 5 0 0 1 7 7l-1 1"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M14 11a5 5 0 0 1 0 7l-1 1a5 5 0 0 1-7-7l1-1"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
+      <path d="M10 13a5 5 0 0 1 0-7l1-1a5 5 0 0 1 7 7l-1 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path d="M14 11a5 5 0 0 1 0 7l-1 1a5 5 0 0 1-7-7l1-1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -1570,13 +1770,16 @@ function IconLink({ className = "" }: { className?: string }) {
 function IconEye({ className = "" }: { className?: string }) {
   return (
     <svg className={`h-4 w-4 ${className}`} viewBox="0 0 24 24" fill="none">
-      <path
-        d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
       <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function IconGitHub({ className = "" }: { className?: string }) {
+  return (
+    <svg className={`h-4 w-4 ${className}`} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z" />
     </svg>
   );
 }
