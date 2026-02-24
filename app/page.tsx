@@ -574,7 +574,7 @@ export default function Home() {
                 <Role
                   isDark={isDark}
                   logoSrc={LOGOS.A}
-                  company="Algocode"
+                  company="Altimetrik"
                   title="Python Developer"
                   meta="Pune, India | Aug 2020 – Jul 2022"
                   tags={["Python", "Django", "HTML/CSS/JS", "jQuery", "Jenkins", "Linux", "AWS", "Spark"]}
