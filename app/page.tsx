@@ -9,7 +9,7 @@ const LOGOS = {
   LGYR: "/logos/LGYR.png",
   UHG: "/logos/UHG.jpeg",
   C: "/logos/C.jpeg",
-  A: "/logos/A.jpeg",
+  A: "/logos/A.jpg",
   UNT: "/logos/UNT.png",
 } as const;
 
